@@ -1,0 +1,111 @@
+﻿@page
+@model MyEshop.Pages.Admin.EditModel
+@{
+    ViewData["Title"] = "ویرایش محصول";
+}
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <style>
+        body {
+            direction: rtl;
+        }
+    </style>
+</head>
+<div dir="rtl">
+    <h1>ویرایش محصول</h1>
+    <hr />
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Product.Id" />
+        <dl class="dl-horizontal">
+            <dd><label>نام محصول</label></dd>
+            <dt>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name"></span>
+            </dt>
+            <dd><label>توضیحات</label></dd>
+            <dt>
+                <textarea asp-for="Product.Description" class="form-control"></textarea>
+                <span asp-validation-for="Product.Description"></span>
+            </dt>
+            <dd><label>قیمت</label></dd>
+            <dt>
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price"></span>
+            </dt>
+            <dd><label>تعداد محصول</label></dd>
+            <dt>
+                <input asp-for="Product.QuantityInStock" class="form-control" />
+                <span asp-validation-for="Product.QuantityInStock"></span>
+            </dt>
+            <dd><label>تصویر محصول</label></dd>
+            <dt>
+                <input asp-for="Product.Picture" />
+                <span asp-validation-for="Product.Picture"></span>
+            </dt>
+            <dd>Category</dd>
+            <dt>
+                @foreach (var item in Model.Product.Categories)
+                {
+                <p>
+                    <input type="checkbox" name="selectedGroups" value="@item.Id" @((Model.GoupsProduct.Any(c => c == item.Id) ? "checked" : "")) /> @item.Name
+                </p>
+                }
+            </dt>
+            <dd>نقشه محصول</dd>
+            <dt>
+                <div class="form-group">
+                    <label asp-for="Product.LocationAddress" class="control-label"></label>
+                    <input asp-for="Product.LocationAddress" class="form-control" />
+                    <span asp-validation-for="Product.LocationAddress" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Product.Latitude" class="control-label"></label>
+                    <input asp-for="Product.Latitude" class="form-control" id="Latitude" />
+                    <span asp-validation-for="Product.Latitude" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Product.Longitude" class="control-label"></label>
+                    <input asp-for="Product.Longitude" class="form-control" id="Longitude" />
+                    <span asp-validation-for="Product.Longitude" class="text-danger"></span>
+                </div>
+
+                <!-- نقشه -->
+                <div id="map" style="height: 400px; width: 100%;"></div>
+            </dt>
+            <dd></dd>
+            <dt>
+                <input type="submit" class="btn btn-success" value="Submit" />
+            </dt>
+        </dl>
+
+
+
+    </form>
+</div>
+<script>
+    var map = L.map('map').setView([@Model.Product.Latitude, @Model.Product.Longitude], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+    // اگر مختصات محصولی دارید، می‌توانید یک نشانگر اضافه کنید
+    if (@Model.Product.Latitude && @Model.Product.Longitude) {
+        L.marker([@Model.Product.Latitude, @Model.Product.Longitude]).addTo(map)
+            .bindPopup('Product Location')
+            .openPopup();
+    }
+
+    // رویدادی برای تنظیم مکان نشانگر و پر کردن فیلدهای فرم
+    map.on('click', function(e) {
+        var latlng = e.latlng;
+        L.marker([latlng.lat, latlng.lng]).addTo(map);
+
+        // فیلدهای Latitude و Longitude را پر کنید
+        document.getElementById("Latitude").value = latlng.lat;
+        document.getElementById("Longitude").value = latlng.lng;
+    });
+</script>

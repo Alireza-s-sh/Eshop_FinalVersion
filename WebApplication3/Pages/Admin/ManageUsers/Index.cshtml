@@ -1,0 +1,63 @@
+﻿@page
+@model MyEshop.Pages.Admin.ManageUsers.IndexModel
+
+@{
+    ViewData["Title"] = "لیست کاربرها";
+}
+<head>
+    <style>
+        body {
+            direction: rtl;
+        }
+    </style>
+</head>
+
+<div dir="rtl">
+    <h1>لیست کاربرها</h1>
+    <p>
+        <a asp-page="Create" class="myButton">افزودن کاربر</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ایمیل
+                </th>
+                <th>
+                    رمز عبور کاربر
+                </th>
+                <th>
+                    تاریخ ثبت نام
+                </th>
+                <th>
+                    ادمین
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegisterDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsAdmin)
+                    </td>
+                    <td>
+                        <a class="text-success" asp-page="./Edit" asp-route-id="@item.UserId">ویرایش</a> |
+                        <a asp-page="./Details" asp-route-id="@item.UserId">جزئیات</a> |
+                        <a class="text-danger" asp-page="./Delete" asp-route-id="@item.UserId">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

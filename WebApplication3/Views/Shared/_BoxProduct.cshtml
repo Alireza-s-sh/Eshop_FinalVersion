@@ -1,0 +1,28 @@
+﻿@model Product
+<head>
+    <style>
+        .card {
+            height: 300px; /* Set a fixed height */
+        }
+
+        .card-img-top {
+            height: 150px; /* Set a fixed height for the image */
+            object-fit: cover; /* Ensure the image covers the area without distortion */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space elements evenly */
+            height: 100%; /* Make body take full height of card */
+        }
+    </style>
+
+</head>
+<div class="card">
+    <img src="/images/@(Model.Id).jpg" class="card-img-top img-thumbnail" alt="@Model.Name">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <a asp-action="Detail" asp-controller="Home" asp-route-id="@Model.Id" class="btn btn-outline-primary">جزئیات</a>
+    </div>
+</div>

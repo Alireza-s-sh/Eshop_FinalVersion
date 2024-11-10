@@ -1,0 +1,54 @@
+﻿@page
+@model MyEshop.Pages.Admin.ManageUsers.DeleteModel
+
+@{
+    ViewData["Title"] = "حذف کاربر";
+}
+<head>
+    <style>
+        body {
+            direction: rtl;
+        }
+    </style>
+</head>
+<div dir="rtl">
+    <h1>حذف کاربر</h1>
+
+    <h3>آیا مطمئن به حذف کاربر هستید؟</h3>
+    <div>
+        <h4>کاربرها</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                ایمیل
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Users.Email)
+            </dd>
+            <dt class="col-sm-2">
+                رمز عبور 
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Users.Password)
+            </dd>
+            <dt class="col-sm-2">
+                تاریخ ثبت نام
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Users.RegisterDate)
+            </dd>
+            <dt class="col-sm-2">
+                ادمین
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Users.IsAdmin)
+            </dd>
+        </dl>
+
+        <form method="post">
+            <input type="hidden" asp-for="Users.UserId" />
+            <input type="submit" value="حذف" class="btn btn-danger" /> |
+            <a asp-page="./Index">بازگشت به لیست</a>
+        </form>
+    </div>
+</div>

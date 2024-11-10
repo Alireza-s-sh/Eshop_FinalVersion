@@ -1,0 +1,55 @@
+﻿@model MyEshop.Models.RegisterViewModel
+
+@{
+    ViewData["Title"] = "ثبت نام";
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <style>
+        div ,input{
+            font-family: 'Vazir', sans-serif;
+        }
+    </style>
+</head>
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <form asp-action="Register" class="box">
+        <h1>ثبت نام فروشگاه من</h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input asp-for="Email" type="text" class="form-control" placeholder="ایمیل" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="RePassword" type="password" class="form-control" placeholder="تایید رمز عبور" />
+            <span asp-validation-for="RePassword" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="ثبت نام" class="btn btn-success" />
+        </div>
+        <p>اکانت دارید؟<a asp-action="Login" asp-controller="Account">ورود</a></p>
+    </form>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+

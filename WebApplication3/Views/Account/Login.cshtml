@@ -1,0 +1,64 @@
+﻿@model MyEshop.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "ورود";
+    Layout = null;
+}
+<head>
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <style>
+        div,input {
+            font-family: 'Vazir', sans-serif;
+        }
+    </style>
+</head>
+
+<hr />
+<div class="area">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="alert alert-danger">
+            You dont have permission
+        </div>
+    }
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <form asp-action="Login" class="box">
+        <h1>ورود به فروشگاه من</h1>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input asp-for="Email" type="text" class="form-control" placeholder="ایمیل" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" type="password" class="form-control" placeholder=" رمز عبور" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+            </label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="ورود" class="btn btn-primary" />
+        </div>
+        <p>اکانت ندارید؟<a asp-action="Register" asp-controller="Account">ثبت نام </a></p>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "انتخاب موقعیت";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+</head>
+<div id="map" style="height: 500px; width: 100%;"></div>
+<div id="nearbyProducts"></div>
+
+<script>
+    var map = L.map('map').setView([35.6892, 51.3890], 12); // نمایش نقشه با مرکزیت تهران
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+    var marker;
+
+    map.on('click', function(e) {
+        var latitude = e.latlng.lat;
+        var longitude = e.latlng.lng;
+
+        if (marker) {
+            marker.setLatLng(e.latlng);
+        } else {
+            marker = L.marker(e.latlng).addTo(map);
+        }
+
+        // ارسال موقعیت به اکشن ShowNearbyProducts
+        $.ajax({
+            url: '@Url.Action("ShowNearbyProducts", "Map")',
+            type: 'POST',
+            data: {
+                latitude: latitude,
+                longitude: longitude
+            },
+            success: function(data) {
+                $('#nearbyProducts').html(data);
+            }
+        });
+    });
+</script>

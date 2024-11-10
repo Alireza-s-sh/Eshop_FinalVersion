@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = ViewData["GroupName"];
+}
+
+<head>
+    <style>
+        .custom-carousel-control {
+            background-color: #f1f1f1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color:black;
+            font-weight:bold;
+        }
+
+            .custom-carousel-control .carousel-control-prev-icon,
+            .custom-carousel-control .carousel-control-next-icon {
+                background-color: black; /* Optional: Changes the color of the icon */
+                width: 30vh;
+                height: 30vh;
+            }
+
+            .custom-carousel-control:hover {
+                background-color: #ddd; /* Slightly darker on hover */
+            }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            opacity: 1; /* Ensure buttons are fully visible */
+            color:black;
+        }
+
+    </style>
+</head>
+<h1> @ViewData["GroupName"] محصولات</h1>
+<hr />
+
+<div id="productCarousel" class="carousel slide mt-5" data-bs-ride="carousel" style="padding:10vh;">
+    <div class="carousel-inner text-center">
+        @foreach (var item in Model)
+        {
+            var activeClass = item == Model.First() ? "active" : "";<!-- Add active class to the first item -->
+            <div class="carousel-item @activeClass">
+                <div class="col-md-4 d-inline-block">
+                    <partial name="_BoxProduct" model="@item" />
+                </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+       قبلی
+    </button>
+    <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+        بعدی
+    </button>
+
+</div>
+
+

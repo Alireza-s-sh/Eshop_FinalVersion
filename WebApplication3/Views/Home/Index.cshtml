@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "فروشگاه من";
+}
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <style>
+        div {
+            font-family: 'Vazir', sans-serif;
+        }
+    </style>
+</head>
+<div class="text-center mt-5">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <partial name="_BoxProduct" model="@item" />
+            </div>
+        }
+    </div>
+</div>

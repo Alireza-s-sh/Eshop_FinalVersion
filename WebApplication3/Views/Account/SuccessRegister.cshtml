@@ -1,0 +1,19 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "SuccessRegister";
+}
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <style>
+        div {
+            font-family: 'Vazir', sans-serif;
+        }
+    </style>
+</head>
+<h1>ثبت نام با موفقیت انجام شد!</h1>
+<div class="alert alert-success">
+    ممنون از ثبت نام شما '@Model.Email'می توانید از لینک زیر وارد سایت شوید
+    <p>
+        <a asp-controller="Account" asp-action="Login">ورود به سایت</a>
+    </p>
+</div>

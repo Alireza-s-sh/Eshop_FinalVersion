@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Product>
+
+
+<div class="container mt-4">
+    <h3>محصولات نزدیک به شما :</h3>
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <partial name="_BoxProduct" model="@product" />
+            </div>
+        }
+    </div>
+</div>

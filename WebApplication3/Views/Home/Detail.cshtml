@@ -1,0 +1,38 @@
+﻿@model DetailsViewModel
+@{
+    ViewData["Title"] = "کالا " + Model.Product.Name;
+}
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <style>
+        .text-justify {
+            text-align: justify;
+        }
+
+        div {
+            font-family: 'Vazir', sans-serif;
+        }
+    </style>
+</head>
+<div class="container rtl" style="padding:30px;direction:rtl;">
+    <h1 class="display-4 mb-4">@Model.Product.Name</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@($"/images/{Model.Product.Id}.jpg")"
+                 alt="@Model.Product.Name"
+                 class="img-fluid img-thumbnail"
+                 style="max-height: 400px; object-fit: cover;" />
+        </div>
+        <div class="col-md-6">
+            <p class="lead mb-4 text-justify">@Model.Product.Description</p>
+            <p class="h5 mb-4">قیمت: @Model.Product.Item.Price</p>
+            <div class="mt-4">
+                <a class="btn btn-primary btn-lg"
+                   asp-controller="Home"
+                   asp-action="AddToCart"
+                   asp-route-itemId="@Model.Product.ItemId">افزودن به سبد خرید</a>
+            </div>
+        </div>
+    </div>
+</div>
+
